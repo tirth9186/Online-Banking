@@ -13,12 +13,17 @@ public class UserRole {
 
 	@Id
 	@Column(name = "ROLE_ID")
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	@Column(name = "USERNAME")
 	private String username;
 	@Column(name = "ROLE")
 	private String role;
+
+	public UserRole() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public UserRole(String username, String role) {
 		super();

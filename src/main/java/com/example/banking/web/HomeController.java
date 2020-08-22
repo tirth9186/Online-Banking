@@ -30,7 +30,22 @@ public class HomeController {
 	public String signup(Model model) {
 		User user = new User();
 		model.addAttribute("user", user);
+		model.addAttribute("registrationSuccess", false);
+		model.addAttribute("registrationFail", false);
+
 		return "signup";
+	}
+
+	@RequestMapping(value = { "/login" }, method = RequestMethod.GET)
+	public String login(Model model) {
+		User user = new User();
+		model.addAttribute("user", user);
+		return "login";
+	}
+
+	@RequestMapping(value = { "/logout-success" }, method = RequestMethod.GET)
+	public String logout() {
+		return "logout-success";
 	}
 
 	@RequestMapping(value = { "/signup" }, method = RequestMethod.POST)
@@ -43,6 +58,7 @@ public class HomeController {
 				model.addAttribute("emailExist", true);
 			if (userService.isPhoneExist(user.getPhone()))
 				model.addAttribute("phoneExist", true);
+			model.addAttribute("registrationFail", true);
 			return "signup";
 		}
 		else {
@@ -51,8 +67,11 @@ public class HomeController {
 			User createdUser = userService.createUser(user, userRoles);
 			if (createdUser == null)
 				throw new Exception("Registration Failed!!!!");
+			model.addAttribute("registrationSuccess", true);
+			model.addAttribute("username", user.getUsername());
 			return "index";
 		}
 	}
 
 }
+

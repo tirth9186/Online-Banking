@@ -14,8 +14,7 @@ import com.example.banking.data.repository.UserRoleRepository;
 @Service
 public class UserService {
 
-	@Autowired
-	private BCryptPasswordEncoder passwordEncoder;
+	private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
 	
 	@Autowired
 	private UserRepository userRepository;

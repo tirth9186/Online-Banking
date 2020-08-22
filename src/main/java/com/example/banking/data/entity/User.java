@@ -12,20 +12,20 @@ import javax.persistence.Table;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "userid")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "USERID")
 	private Long userid;
-	@Column(name = "username", nullable = false, unique = true)
+	@Column(name = "USERNAME", nullable = false, unique = true)
 	private String username;
-	@Column(name = "password", nullable = false)
+	@Column(name = "PASSWORD", nullable = false)
 	private String password;
-	@Column(name = "firstname")
+	@Column(name = "FIRSTNAME")
 	private String firstname;
-	@Column(name = "lastname")
+	@Column(name = "LASTNAME")
 	private String lastname;
-	@Column(name = "email", nullable = false, unique = true)
+	@Column(name = "EMAIL", nullable = false, unique = true)
 	private String email;
-	@Column(name = "phone", nullable = false, unique = true)
+	@Column(name = "PHONE", nullable = false, unique = true)
 	private String phone;
 
 	public User() {
