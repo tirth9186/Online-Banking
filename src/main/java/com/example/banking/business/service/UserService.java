@@ -5,6 +5,7 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.banking.data.entity.User;
 import com.example.banking.data.entity.UserRole;
@@ -12,6 +13,7 @@ import com.example.banking.data.repository.UserRepository;
 import com.example.banking.data.repository.UserRoleRepository;
 
 @Service
+@Transactional
 public class UserService {
 
 	private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
@@ -53,5 +55,6 @@ public class UserService {
 		localUser = userRepository.save(user);
 		return localUser;
 	}
+
 
 }
