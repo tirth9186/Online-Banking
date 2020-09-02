@@ -6,6 +6,6 @@ import com.example.banking.data.entity.PrimaryAccount;
 
 public interface PrimaryAccountRepository extends CrudRepository<PrimaryAccount, Long> {
 
-	public PrimaryAccount findByAccountNumber(int accountNumber);
+	public PrimaryAccount findByAccountNumber(long accountNumber);
 
 }

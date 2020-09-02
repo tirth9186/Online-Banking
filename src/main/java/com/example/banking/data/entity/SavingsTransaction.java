@@ -28,10 +28,9 @@ public class SavingsTransaction {
 	@JoinColumn(name = "savings_account_id")
 	private SavingsAccount savingsAccount;
 
-	public SavingsTransaction(Long id, Date date, String description, String status, String type, double amount,
+	public SavingsTransaction(Date date, String description, String status, String type, double amount,
 			BigDecimal availableBalance, SavingsAccount savingsAccount) {
 		super();
-		this.id = id;
 		this.date = date;
 		this.description = description;
 		this.status = status;

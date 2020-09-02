@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+		<title>Home</title>	
+	</head>
+	<body>
+		<nav class = "navbar navbar-inverse navbar-fixed-top">
+			<div class = "container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+					 data-target="#navbar" aria-controls="navbar" aria-expanded="false">
+					 <span class="sr-only">Toggle Navigation</span>
+					 <span class="icon-bar"></span> 
+					 <span class="icon-bar"></span> 
+					 <span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#" th:href="@{/}">
+					Home
+					</a>
+				</div>
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li sec:authorize="isAuthenticated()">
+							<a th:href="@{/user/accounts}">My Accounts</a>
+						</li>
+						<li sec:authorize="isAuthenticated()">
+							<a th:href="@{/user/profile}">My Profile</a>
+						</li>
+						<li sec:authorize="isAuthenticated()">
+							<a th:href="@{/logout}">Logout</a>
+						</li>
+						<li sec:authorize="!isAuthenticated()">
+							<a th:href="@{/login}">Login</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</body>
+	
+</html>

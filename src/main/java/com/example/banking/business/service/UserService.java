@@ -1,5 +1,6 @@
 package com.example.banking.business.service;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class UserService {
 	private UserRepository userRepository;
 
 	@Autowired
-	private UserRoleRepository userRoleRepository;
+	AccountService accountService;
 
 	public boolean isUserExist(User user) {
 		return (isUsernameExist(user.getUsername()) || isEmailExist(user.getEmail()) || isPhoneExist(user.getPhone()));
@@ -48,13 +49,29 @@ public class UserService {
 		String encryptedPassword = passwordEncoder.encode(user.getPassword());
 		user.setPassword(encryptedPassword);
 
-		for (UserRole ur : userRoles) {
-			userRoleRepository.save(ur);
-		}
+		user.setUserRoles(userRoles);
+
+		user.setPrimaryAccount(accountService.createPrimaryAccount());
+		user.setSavingsAccount(accountService.createSavingsAccount());
 
 		localUser = userRepository.save(user);
 		return localUser;
 	}
 
+	public User findByUsername(String username) {
+		return userRepository.findByUsername(username);
+	}
+
+	public User saveUser(User user) {
+		return userRepository.save(user);
+	}
+
+	public List<User> findAllUsers() {
+		return userRepository.findAll();
+	}
+
+	public String encodePassword(String password) {
+		return passwordEncoder.encode(password);
+	}
 
 }

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+		<title>Accounts</title>	
+	</head>
+	<body>
+		<nav th:replace="common/header.html :: nav"></nav>
+		<br>
+		<br>
+		<div class="container">
+	  		<div class="row">
+	  			<div class="col-lg-12">
+			  		<h2><span sec:authentication="name">Username</span>'s Account Details</h2>				
+	  			</div>
+	  		</div>
+			<div class="row">
+				<div class="col-lg-6 col-md-6">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-6">
+									<h2>Primary Balance: </h2>
+								</div>
+								<div class="col-xs-6 text-right">
+									<h1><i class="fa fa-usd" aria-hidden="true"></i><span th:text="${primaryAccount.accountBalance}">...</span></h1>
+								</div>
+							</div>
+						</div>
+						<a th:href="@{/account/primaryaccount}">
+							<div class="panel-footer">
+								<span class="pull-left">View Details</span>
+								<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+								<div class="clearfix"></div>
+							</div>
+						</a>
+					</div>
+					<div class="panel panel-success">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-6">
+									<h2>Savings Balance: </h2>
+								</div>
+								<div class="col-xs-6 text-right">
+									<h1><i class="fa fa-usd" aria-hidden="true"></i><span th:text="${savingsAccount.accountBalance}">...</span></h1>
+								</div>
+							</div>
+						</div>
+						<a th:href="@{/account/savingsaccount}">
+							<div class="panel-footer">
+								<span class="pull-left">View Details</span>
+								<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+								<div class="clearfix"></div>
+							</div>
+						</a>
+					</div>
+					
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="panel panel-yellow">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-3">
+								<i class="fa fa-credit-card fa-5x"></i>
+								</div>
+								<div class="col-xs-9 text-right">
+									<div>Deposit</div>
+								</div>
+							</div>
+						</div>
+						<a th:href="@{/account/deposit}">
+							<div class="panel-footer">
+								<span class="pull-left">Go to Deposit</span>
+								<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+								<div class="clearfix"></div>
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="panel panel-red">
+						<div class="panel-heading">
+							<div class="row">
+								<div class="col-xs-3">
+								<i class="fa fa-money fa-5x"></i>
+								</div>
+								<div class="col-xs-9 text-right">
+									<div>Withdraw</div>
+								</div>
+							</div>
+						</div>
+						<a th:href="@{/account/withdraw}">
+							<div class="panel-footer">
+								<span class="pull-left">Go to Withdrawal</span>
+								<span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+								<div class="clearfix"></div>
+							</div>
+						</a>
+					</div>
+				</div>
+			</div>	
+	 	</div>
+	</body>
+	
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+		<title>User Profile</title>	
+	</head>
+	<body>
+		<nav th:replace="common/header.html :: nav"></nav>
+		<br>
+		<br>
+		<div class="container">
+	  		<div class="row main">
+	  			<div class="col-md-6">
+	  				<h2 class="title">My Profile</h2>
+	  				<hr/>
+	  				<form method="post" th:action="@{/user/profile}">
+	  					<input type="hidden" name="id" th:value="${user.userid}"/>
+	  					<span class="bg-success" th:if="${updated}">Account Updated Successfully</span>
+	  					<div class="form-group">
+	  						<label for="firstname">First Name</label>
+	  						<div class="cols-sm-10">
+	  							<div class="input-group">
+	  								<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+	  								<input type="text" class="form-control" th:value="${user.firstname}" id="firstname" name="firstname" roleId="firstname" placeholder="Enter your firstname" required="required"/>
+	  							</div>
+	  						</div>
+	  					</div>
+	  					
+	  					<div class="form-group">
+	  						<label class="cols-sm-2 control-label" for="lastname">Last Name</label>
+	  						<div class="col-sm-10">
+	  							<div class="input-group">
+	  								<span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+	  								<input type="text" class="form-control" th:value="${user.lastname}" id="lastname" name="lastname" roleId="lastname" placeholder="Enter your lastname" required="required"/>
+	  							</div>
+	  						</div>
+	  					</div>
+	  					
+	  					<div class="form-group">
+	  						<label class="cols-sm-2 control-label" for="phone">Phone</label>
+	  						<div class="col-sm-10">
+	  							<div class="input-group">
+	  								<span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
+	  								<input type="text" class="form-control" th:value="${user.phone}" id="phone" name="phone" roleId="phone" placeholder="ex. +91 9876545679" required="required"/>
+	  							</div>
+	  						</div>
+	  					</div>
+	  					
+	  					<div class="form-group">
+	  						<label class="cols-sm-2 control-label" for="email">Email Id</label>
+	  						<span class="bg-danger pull-right" th:if="${emailExists}">Email already exists</span>
+	  						<div class="col-sm-10">
+	  							<div class="input-group">
+	  								<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+	  								<input type="text" class="form-control" th:value="${user.email}" id="email" name="email" roleId="email" placeholder="Enter your email" required="required"/>
+	  							</div>
+	  						</div>
+	  					</div>
+	  					
+	  					<div class="form-group">
+	  						<label class="cols-sm-2 control-label" for="username">Username</label>
+	  						<span class="bg-danger pull-right" th:if="${usernameExists}">Username already exists</span>
+	  						<div class="col-sm-10">
+	  							<div class="input-group">
+	  								<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+	  								<input type="text" class="form-control" th:value="${user.username}" id="username" name="username" roleId="username" placeholder="Enter your username" required="required"/>
+	  							</div>
+	  						</div>
+	  					</div>
+	  					<!-- 
+	  					<div class="form-group">
+	  						<label class="cols-sm-2 control-label" for="password">Password</label>
+	  						<div class="col-sm-10">
+	  							<div class="input-group">
+	  								<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
+	  								<input type="password" class="form-control" th:value="${user.password}" id="password" name="password" roleId="password" placeholder="Enter your password" required="required"/>
+	  							</div>
+	  						</div>
+	  					</div>	  					
+	  					 -->
+	  					<div class="form-group">
+	  						<button type="submit" class="btn btn-primary btn-block">Change Settings</button>
+	  					</div>
+	  				</form>
+	  			</div>
+	  			
+	  			<div class="col-md-6">
+	  				<div class="panel-heading">
+	  					<div class="panel-title text-center">
+	  						<h1 class="title">Account Info..</h1>
+	  						<hr/>
+	  					</div>
+	  					
+	  					<table class="responstable">
+	  						<tr>
+	  							<th>Primary Account Number</th>
+	  							<th>Savings Account Number</th>
+	  						</tr>
+	  						
+	  						<tr>
+	  							<td data-th-text="${user.primaryAccount.accountNumber}">...</td>
+	  							<td data-th-text="${user.savingsAccount.accountNumber}">...</td>
+	  						</tr>
+	  						
+	  					</table>
+	  					
+	  				</div>
+	  			
+	  			</div>
+	  		
+	  		</div>	
+	 	</div>
+		
+	</body>
+	
+</html>

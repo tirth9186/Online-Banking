@@ -6,5 +6,5 @@ import com.example.banking.data.entity.SavingsAccount;
 
 public interface SavingsAccountRepository extends CrudRepository<SavingsAccount, Long> {
 
-	public SavingsAccount findByAccountNumber(int accountNumber);
+	public SavingsAccount findByAccountNumber(long accountNumber);
 }

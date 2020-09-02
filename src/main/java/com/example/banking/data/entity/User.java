@@ -40,8 +40,6 @@ public class User {
 	@Column(name = "ENABLED")
 	private boolean enabled = true;
 
-	@OneToOne
-	private PrimaryAccount primaryAccount;
 
 	@OneToOne
 	private SavingsAccount savingsAccount;
@@ -57,6 +55,8 @@ public class User {
 	@JsonIgnore
 	private Set<UserRole> userRoles = new HashSet<>();
 
+	@OneToOne
+	private PrimaryAccount primaryAccount;
 
 	public PrimaryAccount getPrimaryAccount() {
 		return primaryAccount;

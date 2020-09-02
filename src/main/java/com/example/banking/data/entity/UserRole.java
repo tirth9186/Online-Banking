@@ -5,30 +5,43 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "USER_ROLE")
+@Table(name = "USERROLE")
 public class UserRole {
 
 	@Id
-	@Column(name = "ROLE_ID")
+	@Column(name = "ROLEID")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Column(name = "USERNAME")
-	private String username;
 	@Column(name = "ROLE")
 	private String role;
+
+	@ManyToOne
+	@JoinColumn(name = "USERID")
+	User user;
+
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public UserRole() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public UserRole(String username, String role) {
+	public UserRole(String role, User user) {
 		super();
-		this.username = username;
 		this.role = role;
+		this.user = user;
 	}
 
 	public long getId() {
@@ -37,14 +50,6 @@ public class UserRole {
 
 	public void setId(long id) {
 		this.id = id;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
 	}
 
 	public String getRole() {

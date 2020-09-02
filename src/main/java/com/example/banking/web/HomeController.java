@@ -1,5 +1,6 @@
 package com.example.banking.web;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.example.banking.business.service.UserService;
+import com.example.banking.data.entity.PrimaryAccount;
+//import com.example.banking.data.entity.PrimaryAccount;
+import com.example.banking.data.entity.SavingsAccount;
 import com.example.banking.data.entity.User;
 import com.example.banking.data.entity.UserRole;
 
@@ -63,7 +67,8 @@ public class HomeController {
 		}
 		else {
 			Set<UserRole> userRoles = new HashSet<>();
-			userRoles.add(new UserRole(user.getUsername(), "USER"));
+			userRoles.add(new UserRole("USER", user));
+
 			User createdUser = userService.createUser(user, userRoles);
 			if (createdUser == null)
 				throw new Exception("Registration Failed!!!!");

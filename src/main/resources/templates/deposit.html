@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+		<title>Deposit</title>	
+	</head>
+	<body>
+		<nav th:replace="common/header.html :: nav"></nav>
+		<br>
+		<br>
+		<div class="container">
+			<div class="row">
+			<div class="col-lg-12">
+		  		<h2>Deposit Page</h2>		
+			</div>
+			</div>
+			<div class="row">
+			<div class="col-md-6">
+				<form th:action="@{/account/deposit}" method="post">
+					
+					<div class="form-group">
+						<label for="accountType">
+							Select Account Type to deposit:
+						</label>
+						<select class="form-control" th:value="${accountType}" name="accountType" id="accountType" required autofocus>
+							<option disabled selected> -- Select your account -- </option>
+							<option>Primary</option>
+							<option>Savings</option>
+						</select>
+					</div>
+					
+					<div class="form-group">
+						<label for="amount"> Amount to deposit</label>
+						<input th:value="${amount}" type="text" name="amount" id="amount" class="form-control"/>
+					</div>
+					
+					<button class="btn btn-lg btn-primary btn-block" type="submit" >Deposit</button>
+				</form>
+			</div>	
+			</div> 		
+		
+	 	</div>
+		
+	</body>
+	
+</html>

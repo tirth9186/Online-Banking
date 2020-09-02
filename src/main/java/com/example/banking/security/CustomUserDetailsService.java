@@ -34,7 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		if(user==null) {
 			throw new UsernameNotFoundException("Not able to find the :"+username);
 		}
-		List<UserRole> userRoles = this.userRoleRepository.findByUsername(username);
+		List<UserRole> userRoles = this.userRoleRepository.findByUser(user);
 		userPrinicpal = new UserPrincipal(user, userRoles);
 		
 		return userPrinicpal;

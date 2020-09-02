@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface PrimaryTransactionRepository extends CrudRepository<PrimaryAccountRepository, Long> {
+import com.example.banking.data.entity.PrimaryTransaction;
+
+public interface PrimaryTransactionRepository extends CrudRepository<PrimaryTransaction, Long> {
 
 	@Override
-	public List<PrimaryAccountRepository> findAll();
-
+	public List<PrimaryTransaction> findAll();
 }
