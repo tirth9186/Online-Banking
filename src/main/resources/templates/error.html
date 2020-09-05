@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+		<title>Error</title>	
+	</head>
+	<body>
+		<nav th:replace="common/header.html :: nav"></nav>
+		<br>
+		<br>
+		<div class="container">		
+	    
+	    	<ul class="list-group">
+            	<li class="list-group-item list-group-item-danger"><h3 th:text="${error}">Status</h3></li>
+            	<li class="list-group-item" th:text="'Status code: '+ ${status}"></li>
+	        </ul>
+	        <p><a href="/" th:href="@{/}">Back to home page</a></p>
+		
+	 	</div>
+		
+	</body>
+	
+</html>

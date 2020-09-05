@@ -44,7 +44,8 @@
 						<td data-th-text="${user.email}">...</td>
 						<td data-th-text="${user.phone}">...</td>
 						<td data-th-text="${user.enabled}">...</td>
-						<td><a th:href="@{/admin/userDelete?username=}+${user.username}">Delete</a> </td>
+						<td th:if="${user.enabled}"><a th:href="@{/admin/userDelete?username=}+${user.username}">Disable</a> </td>
+						<td th:unless="${user.enabled}"><a th:href="@{/admin/userDelete?username=}+${user.username}">Enable</a> </td>
 					</tr>
 					</tbody>
 				</table>

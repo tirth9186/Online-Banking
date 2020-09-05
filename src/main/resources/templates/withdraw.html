@@ -26,11 +26,14 @@
 				<form th:action="@{/account/withdraw}" method="post">
 					
 					<div class="form-group">
+						<span th:if="${error}">
+	                    	<h3 class="bg bg-danger" th:text="${errormsg}">...</h3>
+	                    </span>
 						<label for="accountType">
 							Select Account Type to withdraw:
 						</label>
 						<select class="form-control" th:value="${accountType}" name="accountType" id="accountType" required autofocus>
-							<option disabled selected> -- Select your account -- </option>
+							<option value="" selected disabled> -- Select your account -- </option>
 							<option>Primary</option>
 							<option>Savings</option>
 						</select>
@@ -38,7 +41,7 @@
 					
 					<div class="form-group">
 						<label for="amount"> Amount to withdraw</label>
-						<input th:value="${amount}" type="text" name="amount" id="amount" class="form-control"/>
+						<input th:value="${amount}" type="text" name="amount" id="amount" class="form-control" pattern="[0-9].{0,}" required/>
 					</div>
 					
 					<button class="btn btn-lg btn-warning btn-block" type="submit" >Withdraw</button>

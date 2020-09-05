@@ -1,9 +1,11 @@
 package com.example.banking.web;
 
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -33,6 +35,7 @@ public class AccountController {
 	private AccountService accountService;
 
 	@RequestMapping("/primaryaccount")
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public String primaryAccount(Model model, Principal principal) {
 		String username = principal.getName();
 		User user = userServie.findByUsername(username);
@@ -44,6 +47,7 @@ public class AccountController {
 	}
 
 	@RequestMapping("/savingsaccount")
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public String savingsAccount(Model model, Principal principal) {
 		String username = principal.getName();
 		User user = userServie.findByUsername(username);
@@ -55,6 +59,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/deposit", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public String deposit(Model model) {
 
 		model.addAttribute("amount", "");
@@ -64,6 +69,7 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/deposit",method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public String depositPost(@ModelAttribute("amount") String amount,
 			@ModelAttribute("accountType") String accountType, Principal principal, Model model)
 			throws NumberFormatException, Exception {
@@ -73,29 +79,50 @@ public class AccountController {
 		model.addAttribute("primaryAccount", primaryAccount);
 		SavingsAccount savingsAccount = userServie.findByUsername(principal.getName()).getSavingsAccount();
 		model.addAttribute("savingsAccount", savingsAccount);
-//		if(accountType.equalsIgnoreCase("Primary")) {
-//			return "primaryaccount";
-//		}
-//		else if (accountType.equalsIgnoreCase("Savings")) {
-//			return "savingsaccount";
-//		}
-
 		return "redirect:/user/accounts";
 	}
 
 	@RequestMapping(value = "/withdraw", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public String withdraw(Model model) {
 
 		model.addAttribute("amount", "");
 		model.addAttribute("accountType", "");
-
+		model.addAttribute("error", false);
+		model.addAttribute("errormsg", "");
 		return "withdraw";
 	}
 
 	@RequestMapping(value = "/withdraw", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public String withdrawPost(@ModelAttribute("amount") String amount,
 			@ModelAttribute("accountType") String accountType, Principal principal, Model model)
 			throws NumberFormatException, Exception {
+
+		if (Double.parseDouble(amount) <= 0) {
+			return "withdraw";
+		}
+
+		if (accountType.equalsIgnoreCase("Primary")) {
+			User user = userServie.findByUsername(principal.getName());
+			if (user.getPrimaryAccount().getAccountBalance().compareTo(new BigDecimal(amount)) < 0) {
+				model.addAttribute("amount", "");
+				model.addAttribute("accountType", "");
+				model.addAttribute("error", true);
+				model.addAttribute("errormsg", "Insufficient Balance..");
+				return "withdraw";
+			}
+		}
+		if (accountType.equalsIgnoreCase("Savings")) {
+			User user = userServie.findByUsername(principal.getName());
+			if (user.getSavingsAccount().getAccountBalance().compareTo(new BigDecimal(amount)) < 0) {
+				model.addAttribute("amount", "");
+				model.addAttribute("accountType", "");
+				model.addAttribute("error", true);
+				model.addAttribute("errormsg", "Insufficient Balance..");
+				return "withdraw";
+			}
+		}
 
 		accountService.withdraw(accountType, Double.parseDouble(amount), principal);
 
@@ -103,11 +130,7 @@ public class AccountController {
 		model.addAttribute("primaryAccount", primaryAccount);
 		SavingsAccount savingsAccount = userServie.findByUsername(principal.getName()).getSavingsAccount();
 		model.addAttribute("savingsAccount", savingsAccount);
-//		if (accountType.equalsIgnoreCase("Primary")) {
-//			return "primaryaccount";
-//		} else if (accountType.equalsIgnoreCase("Savings")) {
-//			return "savingsaccount";
-//		}
+
 
 		return "redirect:/user/accounts";
 	}

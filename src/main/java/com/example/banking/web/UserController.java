@@ -3,6 +3,7 @@ package com.example.banking.web;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +23,7 @@ public class UserController {
 	private UserService userService;
 
 	@RequestMapping(value = "/profile", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public String profile(Principal principal, Model model) {
 		User user = userService.findByUsername(principal.getName());
 		model.addAttribute("user", user);
@@ -29,6 +31,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/profile", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public String profilePost(@ModelAttribute("user") User newUser, Model model) {
 
 		User user = userService.findByUsername(newUser.getUsername());
@@ -45,6 +48,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/accounts")
+	@PreAuthorize("hasRole('ROLE_USER')")
 	public String userAccounts(Principal principal, Model model) {
 		User user = userService.findByUsername(principal.getName());
 		PrimaryAccount primaryAccount = user.getPrimaryAccount();

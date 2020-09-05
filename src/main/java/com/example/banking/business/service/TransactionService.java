@@ -36,6 +36,13 @@ public class TransactionService {
 	@Autowired
 	private SavingsTransactionRepository savingsTransactionRepository;
 
+	public List<PrimaryTransaction> findAllPrimaryTransactions() {
+		return primaryTransactionRepository.findAll();
+	}
+
+	public List<SavingsTransaction> findAllSavingsTransactions() {
+		return savingsTransactionRepository.findAll();
+	}
 
 	public List<PrimaryTransaction> findPrimaryTransactionList(String username) {
 		User user = userRepository.findByUsername(username);

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+		<title>Transactions</title>	
+	</head>
+	<body>
+		<nav th:replace="common/header.html :: nav"></nav>
+		<br>
+		<br>
+		<div class="container">
+	  		<h2>All Transactions List</h2>		
+	    	
+	    	<div class="table-responsive">
+	    	
+	    		<table id="data" class="table table-bordered table-hover table-striped">
+	    			<thead>
+	    			<tr>
+	    				<th>Post Date</th>
+	    				<th>Description</th>
+	    				<th>Type</th>
+	    				<th>Status</th>
+	    				<th>Amount</th>
+	    				<th>Available Balance</th>
+	    			</tr>
+	    			</thead>
+	    			
+	    			<tbody>
+	    				<tr data-th-each="primaryTransaction :${primaryTransactions}">
+	    					<td data-th-text="${primaryTransaction.date}">...</td>
+	    					<td data-th-text="${primaryTransaction.description}">...</td>
+	    					<td data-th-text="${primaryTransaction.type}">...</td>
+	    					<td data-th-text="${primaryTransaction.status}">...</td>
+	    					<td data-th-text="${primaryTransaction.amount}">...</td>
+	    					<td data-th-text="${primaryTransaction.availableBalance}">...</td>
+	    				</tr>
+	    				<tr data-th-each="savingsTransaction :${savingsTransactions}">
+	    					<td data-th-text="${savingsTransaction.date}">...</td>
+	    					<td data-th-text="${savingsTransaction.description}">...</td>
+	    					<td data-th-text="${savingsTransaction.type}">...</td>
+	    					<td data-th-text="${savingsTransaction.status}">...</td>
+	    					<td data-th-text="${savingsTransaction.amount}">...</td>
+	    					<td data-th-text="${savingsTransaction.availableBalance}">...</td>
+	    				</tr>
+	    			</tbody>
+	    			
+	    		</table>
+	    	
+	    	</div>
+		
+	 	</div>
+		
+	</body>
+	
+</html>

@@ -27,7 +27,7 @@
 	            <form th:action="@{/transfer/toSomeoneElse}" method="post">
 	                <div class="form-group" >
 	                    <label for="accountNumber">Destination Account Number:</label>
-	                    <input th:value="${accountNumber}" type="text" name="accountNumber" id="accountNumber" class="form-control" />
+	                    <input th:value="${accountNumber}" type="text" name="accountNumber" id="accountNumber" class="form-control" required />
 	                    <span th:if="${error}">
 	                    	<h3 class="bg bg-danger" th:text="${errormsg}">...</h3>
 	                    </span>
@@ -36,8 +36,8 @@
 	
 	                <div class="form-group" >
 	                    <label for="accountType">Select the account you would like to transfer from:</label>
-	                    <select class="form-control" th:value="${accountType}" name="accountType" id="accountType" required="required">
-	                        <option disabled="disabled" selected="selected"> -- select your account -- </option>
+	                    <select class="form-control" th:value="${accountType}" name="accountType" id="accountType" required>
+	                        <option value="" disabled="disabled" selected="selected"> -- select your account -- </option>
 	                        <option>Primary</option>
 	                        <option>Savings</option>
 	                    </select>
@@ -46,7 +46,7 @@
 	
 	                <div class="form-group">
 	                    <label>Specify the amount you would like to transfer: </label>
-	                    <input th:value="${amount}" type="text" name="amount" id="amount" class="form-control" />
+	                    <input th:value="${amount}" type="text" name="amount" id="amount" pattern="[0-9].{0,}" class="form-control" required />
 	                </div>
 	
 	                <button class="btn btn-lg btn-primary btn-block" type="submit">Transfer</button>
