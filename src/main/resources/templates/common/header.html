@@ -28,13 +28,27 @@
 				</div>
 				<div id="navbar" class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li sec:authorize="isAuthenticated()">
+						<li sec:authorize="hasRole('ROLE_USER')">
 							<a th:href="@{/user/accounts}">My Accounts</a>
 						</li>
-						<li sec:authorize="isAuthenticated()">
+						<li sec:authorize="hasRole('ROLE_USER')">
 							<a th:href="@{/user/profile}">My Profile</a>
 						</li>
-						<li sec:authorize="isAuthenticated()">
+						<li sec:authorize="hasRole('ROLE_ADMIN')">
+							<a th:href="@{/admin/userList}">Manage Users</a>
+						</li>
+						
+						<li sec:authorize="hasRole('ROLE_ADMIN')">
+							<a th:href="@{/admin/transactions}">Transactions</a>
+						</li>
+						
+						<li sec:authorize="hasRole('ROLE_USER')">
+							<a th:href="@{/transfer/betweenAccounts}">Transfer Between Accounts</a>
+						</li>
+						<li sec:authorize="hasRole('ROLE_USER')">
+							<a th:href="@{/transfer/toSomeoneElse}">Transfer Outside</a>
+						</li>
+						<li class="nav-right" sec:authorize="isAuthenticated()">
 							<a th:href="@{/logout}">Logout</a>
 						</li>
 						<li sec:authorize="!isAuthenticated()">

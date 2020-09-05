@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -41,22 +42,21 @@ public class User {
 	private boolean enabled = true;
 
 
-	@OneToOne
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
 	private SavingsAccount savingsAccount;
+
+	@OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+	private PrimaryAccount primaryAccount;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private List<Appointment> appointmentList;
 
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Recipient> recipientList;
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JsonIgnore
 	private Set<UserRole> userRoles = new HashSet<>();
 
-	@OneToOne
-	private PrimaryAccount primaryAccount;
 
 	public PrimaryAccount getPrimaryAccount() {
 		return primaryAccount;
@@ -82,13 +82,6 @@ public class User {
 		this.appointmentList = appointmentList;
 	}
 
-	public List<Recipient> getRecipientList() {
-		return recipientList;
-	}
-
-	public void setRecipientList(List<Recipient> recipientList) {
-		this.recipientList = recipientList;
-	}
 
 	public Set<UserRole> getUserRoles() {
 		return userRoles;

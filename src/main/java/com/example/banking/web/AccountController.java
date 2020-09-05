@@ -69,17 +69,17 @@ public class AccountController {
 			throws NumberFormatException, Exception {
 
 		accountService.deposit(accountType, Double.parseDouble(amount), principal);
+		PrimaryAccount primaryAccount = userServie.findByUsername(principal.getName()).getPrimaryAccount();
+		model.addAttribute("primaryAccount", primaryAccount);
+		SavingsAccount savingsAccount = userServie.findByUsername(principal.getName()).getSavingsAccount();
+		model.addAttribute("savingsAccount", savingsAccount);
+//		if(accountType.equalsIgnoreCase("Primary")) {
+//			return "primaryaccount";
+//		}
+//		else if (accountType.equalsIgnoreCase("Savings")) {
+//			return "savingsaccount";
+//		}
 
-		if(accountType.equalsIgnoreCase("Primary")) {
-			PrimaryAccount primaryAccount = userServie.findByUsername(principal.getName()).getPrimaryAccount();
-			model.addAttribute("primaryAccount", primaryAccount);
-			return "primaryaccount";
-		}
-		else if (accountType.equalsIgnoreCase("Savings")) {
-			SavingsAccount savingsAccount = userServie.findByUsername(principal.getName()).getSavingsAccount();
-			model.addAttribute("savingsAccount", savingsAccount);
-			return "savingsaccount";
-		}
 		return "redirect:/user/accounts";
 	}
 
@@ -99,15 +99,16 @@ public class AccountController {
 
 		accountService.withdraw(accountType, Double.parseDouble(amount), principal);
 
-		if (accountType.equalsIgnoreCase("Primary")) {
-			PrimaryAccount primaryAccount = userServie.findByUsername(principal.getName()).getPrimaryAccount();
-			model.addAttribute("primaryAccount", primaryAccount);
-			return "primaryaccount";
-		} else if (accountType.equalsIgnoreCase("Savings")) {
-			SavingsAccount savingsAccount = userServie.findByUsername(principal.getName()).getSavingsAccount();
-			model.addAttribute("savingsAccount", savingsAccount);
-			return "savingsaccount";
-		}
+		PrimaryAccount primaryAccount = userServie.findByUsername(principal.getName()).getPrimaryAccount();
+		model.addAttribute("primaryAccount", primaryAccount);
+		SavingsAccount savingsAccount = userServie.findByUsername(principal.getName()).getSavingsAccount();
+		model.addAttribute("savingsAccount", savingsAccount);
+//		if (accountType.equalsIgnoreCase("Primary")) {
+//			return "primaryaccount";
+//		} else if (accountType.equalsIgnoreCase("Savings")) {
+//			return "savingsaccount";
+//		}
+
 		return "redirect:/user/accounts";
 	}
 

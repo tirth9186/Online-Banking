@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width,initial-scale=1"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+		<title>betweenAccounts</title>	
+	</head>
+	<body>
+		<nav th:replace="common/header.html :: nav"></nav>
+		<br>
+		<br>
+		<div class="container">
+	  		<div class="row">
+	  			<div class="col-md-6">
+			  		<h2>Transfer Between Accounts</h2>		
+	  			</div>
+	  		</div>
+		    <div class="row">
+		        <div class="col-md-6">
+		            <form th:action="@{/transfer/betweenAccounts}" method="post">
+		                <div class="form-group" >
+		                    <label for="transferFrom">transfer From:</label>
+		                    <select class="form-control" th:value="${transferFrom}" name="transferFrom" id="transferFrom" required>
+		                        <option  disabled selected> -- select your account -- </option>
+		                        <option value="Primary">Primary</option>
+		                        <option value="Savings">Savings</option>
+		                    </select>
+		                    <br />
+		                </div>
+		
+		                <div class="form-group" >
+		                    <label for="transferTo">transfer To:</label>
+		                    <select class="form-control" th:value="${transferTo}" name="transferTo" id="transferTo" required>
+		                        <option  disabled selected> -- select your account -- </option>
+		                        <option value="Primary">Primary</option>
+		                        <option value="Savings">Savings</option>
+		                    </select>
+		                    <br />
+		                </div>
+		
+		                <div class="form-group">
+		                    <label>Specify the amount you would like to transfer: </label>
+		                    <input th:value="${amount}" type="text" name="amount" id="amount" class="form-control"/>
+		                </div>
+		
+		                <button class="btn btn-lg btn-primary btn-block" type="submit">Transfer</button>
+		            </form>
+		
+		            <div class="col-md-6">
+		            </div>
+		        </div>
+		    </div>
+			
+	 	</div>
+		
+	</body>
+	
+</html>

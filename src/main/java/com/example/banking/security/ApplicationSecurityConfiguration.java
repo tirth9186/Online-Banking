@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
@@ -24,9 +25,14 @@ public class ApplicationSecurityConfiguration extends WebSecurityConfigurerAdapt
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
 		provider.setUserDetailsService(cdService);
-		provider.setPasswordEncoder(new BCryptPasswordEncoder(11));
+		provider.setPasswordEncoder(encoder());
 		provider.setAuthoritiesMapper(authorityMapper());
 		return provider;
+	}
+
+	@Bean
+	public PasswordEncoder encoder() {
+		return new BCryptPasswordEncoder(12);
 	}
 
 	@Bean

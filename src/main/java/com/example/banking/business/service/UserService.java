@@ -4,20 +4,20 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.banking.data.entity.User;
 import com.example.banking.data.entity.UserRole;
 import com.example.banking.data.repository.UserRepository;
-import com.example.banking.data.repository.UserRoleRepository;
 
 @Service
 @Transactional
 public class UserService {
 
-	private static BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(11);
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -53,7 +53,8 @@ public class UserService {
 
 		user.setPrimaryAccount(accountService.createPrimaryAccount());
 		user.setSavingsAccount(accountService.createSavingsAccount());
-
+		user.getPrimaryAccount().setUser(user);
+		user.getSavingsAccount().setUser(user);
 		localUser = userRepository.save(user);
 		return localUser;
 	}
@@ -66,12 +67,13 @@ public class UserService {
 		return userRepository.save(user);
 	}
 
+	public void deleteUser(User user) {
+		userRepository.delete(user);
+	}
+
 	public List<User> findAllUsers() {
 		return userRepository.findAll();
 	}
 
-	public String encodePassword(String password) {
-		return passwordEncoder.encode(password);
-	}
 
 }
