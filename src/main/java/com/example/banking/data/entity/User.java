@@ -1,5 +1,6 @@
 package com.example.banking.data.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -19,25 +20,32 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "USER")
+@Table(name = "\"USER\"")
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "USERID")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userid;
+	
 	@Column(name = "USERNAME", nullable = false, unique = true)
 	private String username;
+	
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
+	
 	@Column(name = "FIRSTNAME")
 	private String firstname;
+	
 	@Column(name = "LASTNAME")
 	private String lastname;
+	
 	@Column(name = "EMAIL", nullable = false, unique = true)
 	private String email;
+	
 	@Column(name = "PHONE", nullable = false, unique = true)
 	private String phone;
+	
 	@Column(name = "ENABLED")
 	private boolean enabled = true;
 
